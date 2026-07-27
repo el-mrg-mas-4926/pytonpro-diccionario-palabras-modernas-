@@ -1,0 +1,66 @@
+import discord
+from bot_logic import *
+from discord.ext import commands
+    
+# La variable intents almacena los privilegios del bot
+intents = discord.Intents.default()
+# Activar el privilegio de lectura de mensajes
+intents.message_content = True
+# Crear un bot en la variable cliente y transferirle los privilegios
+bot = commands.Bot(command_prefix = "$", intents=intents)
+#$hola $chau $como_te_llamas $contra $emoji $moneda $dado $semilla $conoses_a_007n7 $repeating_command $quien_es_007n7 $quien_o_que_es_el_espectro
+
+@bot.event
+async def on_ready():
+    print(f'Hemos iniciado sesión como {bot.user}')
+
+@bot.command()
+async def hola(ctx):
+    await ctx.send("hola!")
+
+@bot.command()
+async def chau(ctx):
+    await ctx.send("chau😭")
+
+@bot.command()
+async def como_te_llamas(ctx):
+    await ctx.send("me llamo 449g9 (bot)")
+
+@bot.command()
+async def contra(ctx, caracteres:int):
+    await ctx.send(gen_pass(caracteres))
+
+@bot.command()
+async def emoji(ctx):
+    await ctx.send(gen_emodji())
+
+@bot.command()
+async def moneda(ctx):
+    await ctx.send(flip_coin())
+
+@bot.command()
+async def dado(ctx):
+    await ctx.send(gen_dado())
+
+@bot.command()
+async def semilla(ctx):
+    await ctx.send(semilla())
+
+@bot.command()
+async def conoses_a_007n7(ctx):
+    await ctx.send("... no, solo NO")
+
+@bot.command()
+async def quien_es_007n7(ctx):
+    await ctx.send("NO DIGAS SU NOMBRE")
+
+@bot.command()
+async def quien_o_que_es_el_espectro(ctx):
+    await ctx.send("no lo se, solo se que es malo sea lo que sea")
+
+@bot.command()
+async def repeating_command(ctx, times: int, content='repeating...'):
+    for i in range(times):
+        await ctx.send(content)
+
+bot.run("")
